@@ -73,11 +73,24 @@ def manage_interceptor(next):
         return next()
     raise seeother('/signin')
 
+
 @view('blogs.html')
 @get('/')
 def index():
     blogs, page = _get_blogs_by_page()
     return dict(page=page, blogs=blogs, user=ctx.request.user)
+
+@view('test_user.html')
+@get('/show_users')
+def test_users():
+    users = User.find_all()
+    return dict(users=users)
+
+@view('first.html')
+@get('/show_first')
+def test_first():
+    user1 = {"name":"haojj"}
+    return dict(user=user1)
 
 @view('blog.html')
 @get('/blog/:blog_id')
